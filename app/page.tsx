@@ -87,7 +87,7 @@ export default function HomePage() {
               </div>
             </div>
           ))}
-          {monitorCards.map((m) => (
+          {monitorCards.map((m: any) => (
             <div key={m.id} style={{ border: "1px solid #ddd", borderRadius: 10, padding: 12 }}>
               <div style={{ fontWeight: 700 }}>{m.name}</div>
               <div style={{ marginTop: 6 }}>
