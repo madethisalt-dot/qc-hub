@@ -1,6 +1,6 @@
-// app/admin/page.tsx
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Submission = any;
 type HubState = any;
@@ -71,7 +71,7 @@ export default function AdminPage() {
       setMsg(data?.error || "Status save failed.");
       return;
     }
-    setMsg("Saved.");
+    setMsg("✅ Saved successfully!");
   }
 
   function addManual() {
@@ -102,80 +102,133 @@ export default function AdminPage() {
   const pending = submissions.filter((s) => s.status === "pending");
 
   return (
-    <div style={{ maxWidth: 1000, margin: "0 auto", padding: 20, fontFamily: "system-ui" }}>
-      <h1>Admin</h1>
-      <div style={{ border: "1px solid #ddd", borderRadius: 10, padding: 12 }}>
-        <div style={{ fontWeight: 700 }}>Admin token</div>
-        <input
-          value={token}
-          onChange={(e) => saveToken(e.target.value)}
-          placeholder="Paste ADMIN_TOKEN"
-          style={{ width: "100%", marginTop: 8 }}
-        />
-        <button onClick={load} style={{ marginTop: 10, padding: "8px 12px" }}>
-          Load admin data
-        </button>
-        {msg ? <p style={{ marginTop: 10 }}>{msg}</p> : null}
-      </div>
-
-      <div style={{ marginTop: 18 }}>
-        <h2>Pending submissions</h2>
-        {pending.length === 0 ? (
-          <p>No pending submissions.</p>
-        ) : (
-          <ul style={{ paddingLeft: 18 }}>
-            {pending.map((s) => (
-              <li key={s.id} style={{ marginBottom: 10 }}>
-                <div style={{ fontWeight: 700 }}>{s.title}</div>
-                <div style={{ fontSize: 12, opacity: 0.85 }}>
-                  {s.course} · {s.type}
-                </div>
-                <a href={s.fileUrl} target="_blank" rel="noreferrer">
-                  Open file
-                </a>
-                <div style={{ marginTop: 6, display: "flex", gap: 8 }}>
-                  <button onClick={() => review(s.id, "approve")}>Approve</button>
-                  <button onClick={() => review(s.id, "reject")}>Reject</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div style={{ marginTop: 18 }}>
-        <h2>Manual status editor</h2>
-        <button onClick={addManual}>Add status item</button>
-        <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "1fr", gap: 10 }}>
-          {(state?.manual || []).map((x: any, i: number) => (
-            <div key={x.id} style={{ border: "1px solid #ddd", borderRadius: 10, padding: 12 }}>
-              <input
-                value={x.title}
-                onChange={(e) => updateManual(i, { title: e.target.value })}
-                style={{ width: "100%", fontWeight: 700 }}
-              />
-              <textarea
-                value={x.message}
-                onChange={(e) => updateManual(i, { message: e.target.value })}
-                style={{ width: "100%", marginTop: 8, minHeight: 60 }}
-              />
-              <select
-                value={x.severity}
-                onChange={(e) => updateManual(i, { severity: e.target.value })}
-                style={{ marginTop: 8 }}
-              >
-                <option value="ok">ok</option>
-                <option value="info">info</option>
-                <option value="warn">warn</option>
-                <option value="down">down</option>
-              </select>
-            </div>
-          ))}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
+            <p className="text-sm text-gray-600">Manage submissions and status updates</p>
+          </div>
+          <Link href="/" className="text-blue-600 hover:text-blue-700 font-medium">
+            ← Back to Home
+          </Link>
         </div>
-        <button onClick={saveStatus} style={{ marginTop: 10, padding: "8px 12px" }}>
-          Save status
-        </button>
-      </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Admin Authentication</h2>
+          <input
+            type="password"
+            value={token}
+            onChange={(e) => saveToken(e.target.value)}
+            placeholder="Enter ADMIN_TOKEN"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-400"
+          />
+          <button
+            onClick={load}
+            className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          >
+            Load Admin Data
+          </button>
+          {msg && (
+            <p className={`mt-3 text-sm ${msg.includes('✅') ? 'text-green-600' : 'text-red-600'}`}>
+              {msg}
+            </p>
+          )}
+        </section>
+
+        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            Pending Submissions ({pending.length})
+          </h2>
+          {pending.length === 0 ? (
+            <p className="text-gray-500">No pending submissions.</p>
+          ) : (
+            <div className="space-y-4">
+              {pending.map((s) => (
+                <div key={s.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
+                  <h3 className="font-semibold text-gray-900">{s.title}</h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {s.course} • {s.type}
+                  </p>
+                  <a
+                    href={s.fileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-600 hover:underline text-sm mt-2 inline-block"
+                  >
+                    Open file →
+                  </a>
+                  <div className="flex gap-3 mt-3">
+                    <button
+                      onClick={() => review(s.id, "approve")}
+                      className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                    >
+                      ✓ Approve
+                    </button>
+                    <button
+                      onClick={() => review(s.id, "reject")}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                    >
+                      ✗ Reject
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-gray-900">Manual Status Items</h2>
+            <button
+              onClick={addManual}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+            >
+              + Add Status Item
+            </button>
+          </div>
+          <div className="space-y-4">
+            {(state?.manual || []).map((x: any, i: number) => (
+              <div key={x.id} className="border border-gray-200 rounded-lg p-4">
+                <input
+                  value={x.title}
+                  onChange={(e) => updateManual(i, { title: e.target.value })}
+                  placeholder="Status title"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 font-semibold placeholder:text-gray-400"
+                />
+                <textarea
+                  value={x.message}
+                  onChange={(e) => updateManual(i, { message: e.target.value })}
+                  placeholder="Status message"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mt-2 placeholder:text-gray-400"
+                  rows={3}
+                />
+                <select
+                  value={x.severity}
+                  onChange={(e) => updateManual(i, { severity: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mt-2"
+                >
+                  <option value="ok">✓ OK (Green)</option>
+                  <option value="info">ℹ Info (Blue)</option>
+                  <option value="warn">⚠ Warning (Yellow)</option>
+                  <option value="down">✗ Down (Red)</option>
+                </select>
+              </div>
+            ))}
+          </div>
+          {(state?.manual || []).length > 0 && (
+            <button
+              onClick={saveStatus}
+              className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            >
+              💾 Save All Changes
+            </button>
+          )}
+        </section>
+      </main>
     </div>
   );
 }
