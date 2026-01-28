@@ -138,7 +138,7 @@ export default function HomePage() {
                 <p className="text-xs text-gray-400 mt-2">Updated {fmt(x.updatedAt)}</p>
               </div>
             ))}
-            {monitorCards.map((m) => (
+            {monitorCards.map((m: any) => (
               <div key={m.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-2 mb-2">
                   <span className={`h-3 w-3 rounded-full ${m.ok ? 'bg-green-500' : 'bg-red-500'}`}></span>
