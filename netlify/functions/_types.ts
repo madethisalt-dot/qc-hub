@@ -1,23 +1,44 @@
 // netlify/functions/_types.ts
-export type StatusSeverity = "ok" | "⚠" | "warn" | "down";
+export type StatusSeverity = "ok" | "info" | "warn" | "down";
 
-export interface StatusItem {
+export type ManualStatusItem = {
   id: string;
-  label: string;
+  title: string;
+  message: string;
+  severity: StatusSeverity;
+  updatedAt: string;
+};
+
+export type Monitor = {
+  id: string;
+  name: string;
   url: string;
-  status: StatusSeverity;
-  lastChecked: string;
-  message?: string;
-}
+};
 
-export interface Submission {
+export type MonitorResult = {
+  monitorId: string;
+  ok: boolean;
+  httpStatus?: number;
+  checkedAt: string;
+};
+
+export type HubState = {
+  manual: ManualStatusItem[];
+  monitors: Monitor[];
+  monitorResults: Record<string, MonitorResult>;
+  lastAutoRun?: string;
+};
+
+export type SubmissionStatus = "pending" | "approved" | "rejected";
+
+export type Submission = {
   id: string;
-  courseCode: string;
-  courseName: string;
-  type: "notes" | "exam" | "cheatsheet";
-  term: string;
-  professor?: string;
+  title: string;
+  course: string;
+  type: "notes" | "exam" | "study-guide" | "other";
   fileUrl: string;
-  submittedAt: string;
-  approved: boolean;
-}
+  status: SubmissionStatus;
+  createdAt: string;
+  reviewedAt?: string;
+  reviewerNote?: string;
+};
