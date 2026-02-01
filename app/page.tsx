@@ -294,15 +294,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-100">Queens College Hub</h1>
-              <p className="text-gray-300">Your campus information center</p>
+              <h1 className="text-3xl font-bold text-gray-100">QC Advice Hub</h1>
             </div>
             <nav className="flex gap-4">
-              <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'home' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>Home</button>
-              <button onClick={() => setActiveTab('status')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'status' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>Status</button>
-              <button onClick={() => setActiveTab('calendar')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'calendar' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>Calendar</button>
-              <button onClick={() => setActiveTab('library')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'library' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>Library</button>
-              <Link href="/admin" className="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">Admin</Link>
+              <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'home' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}>Home</button>
+              <button onClick={() => setActiveTab('status')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'status' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}>Status</button>
+              <button onClick={() => setActiveTab('calendar')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'calendar' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}>Calendar</button>
+              <button onClick={() => setActiveTab('library')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'library' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}>Library</button>
+              <Link href="/admin" className="px-4 py-2 rounded-lg text-gray-300 hover:bg-gray-700 transition-all">Admin</Link>
             </nav>
           </div>
         </div>
@@ -517,11 +516,12 @@ export default function Home() {
         )}
       </main>
 
-      <footer className="bg-white border-t border-gray-600 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-6 text-center text-gray-300">
-          <p>Queens College Hub • Built for students, by students</p>
-        </div>
-      </footer>
+      <footer className="bg-gray-800 border-t border-gray-700 mt-12">
+  <div className="max-w-7xl mx-auto px-4 py-6 text-center text-gray-300">
+    <p>QC Advice Hub • Built for students, by students</p>
+  </div>
+</footer>
+
     </div>
   );
 }
