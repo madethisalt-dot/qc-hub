@@ -34,8 +34,20 @@ export default async function handler(req: Request) {
   const text = await res.text();
   const data = ical.parseICS(text);
 
+  // Get current date at midnight and 7 days from now
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const sevenDaysFromNow = new Date(now);
+  sevenDaysFromNow.setDate(sevenDaysFromNow.getDate() + 7);
+  sevenDaysFromNow.setHours(23, 59, 59, 999);
+
   const events: CalendarEvent[] = Object.values(data)
-    .filter((x: any) => x?.type === "VEVENT" && x?.start)
+    .filter((x: any) => {
+      if (x?.type !== "VEVENT" || !x?.start) return false;
+      const eventDate = new Date(x.start);
+      // Only include events from today onwards and within next 7 days
+      return eventDate >= now && eventDate <= sevenDaysFromNow;
+    })
     .map((x: any) => ({
       title: String(x.summary ?? "Event"),
       start: new Date(x.start).toISOString(),

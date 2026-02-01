@@ -73,14 +73,41 @@ export default function Home() {
   }, [activeTab]);
 
   const fetchStatus = async () => {
-    try {
-      const response = await fetch('/api/uptime-check');
-      const data = await response.json();
-      setStatusItems(data.statuses || []);
-    } catch (error) {
-      console.error('Failed to fetch status:', error);
+  try {
+    const response = await fetch('/api/status-get');
+    const data = await response.json();
+    
+    if (data.ok && data.state) {
+      const monitors = data.state.monitors || [];
+      const results = data.state.monitorResults || {};
+      
+      const items = monitors.map((monitor: any) => {
+        const result = results[monitor.id];
+        let status: 'operational' | 'degraded' | 'outage' = 'operational';
+        
+        if (result) {
+          if (!result.ok) {
+            status = 'outage';
+          } else if (result.httpStatus && result.httpStatus >= 500) {
+            status = 'degraded';
+          }
+        }
+        
+        return {
+          name: monitor.name,
+          status: status,
+          lastChecked: result?.checkedAt ? new Date(result.checkedAt).toLocaleString() : 'Not checked yet',
+          url: monitor.url
+        };
+      });
+      
+      setStatusItems(items);
     }
-  };
+  } catch (error) {
+    console.error('Failed to fetch status:', error);
+  }
+};
+
 
   const fetchCalendar = async () => {
     try {

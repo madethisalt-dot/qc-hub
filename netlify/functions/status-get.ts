@@ -19,6 +19,11 @@ function defaultState(): HubState {
         name: "CUNYfirst Page",
         url: "https://www.cuny.edu/about/administration/offices/cis/cunyfirst/",
       },
+      {
+        id: "brightspace",
+        name: "CUNY Brightspace",
+        url: "https://brightspace.cuny.edu/d2l/home/",
+      },
     ],
     monitorResults: {},
   };
