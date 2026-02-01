@@ -74,7 +74,7 @@ export default function Home() {
 
   const fetchStatus = async () => {
     try {
-      const response = await fetch('/api/check-status');
+      const response = await fetch('/api/uptime-check');
       const data = await response.json();
       setStatusItems(data.statuses || []);
     } catch (error) {
@@ -84,7 +84,7 @@ export default function Home() {
 
   const fetchCalendar = async () => {
     try {
-      const response = await fetch('/api/get-calendar');
+      const response = await fetch('/api/calendar-get');
       const data = await response.json();
       setEvents(data.events || []);
     } catch (error) {
@@ -94,7 +94,7 @@ export default function Home() {
 
   const fetchSubmissions = async () => {
     try {
-      const response = await fetch('/api/get-approved');
+      const response = await fetch('/api/submissions-public');
       const data = await response.json();
       setSubmissions(data.submissions || []);
     } catch (error) {
