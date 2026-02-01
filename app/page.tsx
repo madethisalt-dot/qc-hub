@@ -289,13 +289,13 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <header className="bg-white shadow-md">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
+      <header className="bg-gray-800 shadow-lg border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Queens College Hub</h1>
-              <p className="text-gray-600">Your campus information center</p>
+              <h1 className="text-3xl font-bold text-gray-100">Queens College Hub</h1>
+              <p className="text-gray-300">Your campus information center</p>
             </div>
             <nav className="flex gap-4">
               <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-lg transition-all ${activeTab === 'home' ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>Home</button>
@@ -311,15 +311,15 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 py-8">
         {activeTab === 'home' && (
           <div className="space-y-8">
-            <section className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900">Campus Status</h2>
+            <section className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+              <h2 className="text-2xl font-bold mb-6 text-gray-100">Campus Status</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {statusItems.slice(0, 2).map((item, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={index} className="border border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className={`w-3 h-3 rounded-full ${item.status === 'operational' ? 'bg-green-500' : item.status === 'degraded' ? 'bg-yellow-500' : 'bg-red-500'}`} />
-                        <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                        <h3 className="font-semibold text-gray-100">{item.name}</h3>
                       </div>
                       <span className="text-sm text-gray-500 capitalize">{item.status} ({item.lastChecked.split(' ')[0]})</span>
                     </div>
@@ -329,16 +329,16 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900">Upcoming Events (Next 7 Days)</h2>
+            <section className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+              <h2 className="text-2xl font-bold mb-6 text-gray-100">Upcoming Events (Next 7 Days)</h2>
               {events.length === 0 ? (
-                <p className="text-gray-600">No upcoming events in the next 7 days.</p>
+                <p className="text-gray-300">No upcoming events in the next 7 days.</p>
               ) : (
                 <div className="space-y-3">
                   {events.slice(0, 5).map((event, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <h3 className="font-semibold text-gray-900">{event.title}</h3>
-                      <p className="text-sm text-gray-600">{new Date(event.start).toLocaleString()}</p>
+                    <div key={index} className="border border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <h3 className="font-semibold text-gray-100">{event.title}</h3>
+                      <p className="text-sm text-gray-300">{new Date(event.start).toLocaleString()}</p>
                       {event.location && <p className="text-sm text-gray-500">{event.location}</p>}
                     </div>
                   ))}
@@ -346,17 +346,17 @@ export default function Home() {
               )}
             </section>
 
-            <section className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900">Shared Notes & Exams</h2>
+            <section className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+              <h2 className="text-2xl font-bold mb-6 text-gray-100">Shared Notes & Exams</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <h3 className="font-semibold text-lg">Submit Anonymously</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Title" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-                  <input type="text" placeholder="Course (ex: ECON 229)" value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                  <input type="text" placeholder="Title" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} className="w-full px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                  <input type="text" placeholder="Course (ex: ECON 229)" value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
                 </div>
 
-                <select value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
+                <select value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})} className="w-full px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                   <option value="">Notes</option>
                   <option value="exam">Exam</option>
                   <option value="notes">Class Notes</option>
@@ -364,8 +364,8 @@ export default function Home() {
                   <option value="other">Other</option>
                 </select>
 
-                <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
-                  <p className="text-gray-600 mb-2">📎 Drag & drop file here or</p>
+                <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-600 bg-gray-700'}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+                  <p className="text-gray-300 mb-2">📎 Drag & drop file here or</p>
                   <input type="file" accept=".pdf,.doc,.docx" onChange={(e) => e.target.files && handleFileUpload(e.target.files[0])} className="hidden" id="fileUpload" />
                   <label htmlFor="fileUpload" className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer inline-block">Choose File</label>
                   <p className="text-xs text-gray-500 mt-2">PDF or DOCX (Max 10MB)</p>
@@ -387,7 +387,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <input type="text" placeholder="File URL (PDF link, Drive link, etc.)" value={formData.fileUrl} onChange={(e) => setFormData({...formData, fileUrl: e.target.value})} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                <input type="text" placeholder="File URL (PDF link, Drive link, etc.)" value={formData.fileUrl} onChange={(e) => setFormData({...formData, fileUrl: e.target.value})} className="w-full px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
 
                 <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Submit for Review</button>
               </form>
@@ -396,18 +396,18 @@ export default function Home() {
         )}
 
         {activeTab === 'status' && (
-          <section className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Campus Status</h2>
+          <section className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+            <h2 className="text-2xl font-bold mb-6 text-gray-100">Campus Status</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {statusItems.map((item, index) => (
-                <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div key={index} className="border border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
                       <div className={`w-3 h-3 rounded-full ${item.status === 'operational' ? 'bg-green-500' : item.status === 'degraded' ? 'bg-yellow-500' : 'bg-red-500'}`} />
-                      <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                      <h3 className="font-semibold text-gray-100">{item.name}</h3>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-1">Status: <span className="font-medium capitalize">{item.status}</span></p>
+                  <p className="text-sm text-gray-300 mb-1">Status: <span className="font-medium capitalize">{item.status}</span></p>
                   <p className="text-sm text-gray-500 mb-2">Checked: {item.lastChecked}</p>
                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Visit site →</a>
                 </div>
@@ -417,16 +417,16 @@ export default function Home() {
         )}
 
         {activeTab === 'calendar' && (
-          <section className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Upcoming Events (Next 7 Days)</h2>
+          <section className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+            <h2 className="text-2xl font-bold mb-6 text-gray-100">Upcoming Events (Next 7 Days)</h2>
             {events.length === 0 ? (
-              <p className="text-gray-600">No upcoming events in the next 7 days.</p>
+              <p className="text-gray-300">No upcoming events in the next 7 days.</p>
             ) : (
               <div className="space-y-4">
                 {events.map((event, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <h3 className="font-semibold text-lg text-gray-900">{event.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{new Date(event.start).toLocaleString()}</p>
+                  <div key={index} className="border border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <h3 className="font-semibold text-lg text-gray-100">{event.title}</h3>
+                    <p className="text-sm text-gray-300 mt-1">{new Date(event.start).toLocaleString()}</p>
                     {event.location && <p className="text-sm text-gray-500 mt-1">📍 {event.location}</p>}
                   </div>
                 ))}
@@ -436,11 +436,11 @@ export default function Home() {
         )}
 
         {activeTab === 'library' && (
-          <section className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Approved Library</h2>
+          <section className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+            <h2 className="text-2xl font-bold mb-6 text-gray-100">Approved Library</h2>
             
             <div className="mb-6 space-y-4">
-              <input type="text" placeholder="🔍 Search by course, title, or type" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              <input type="text" placeholder="🔍 Search by course, title, or type" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Filter by Tags</label>
@@ -455,7 +455,7 @@ export default function Home() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Minimum Rating</label>
-                <select value={filterRating} onChange={(e) => setFilterRating(Number(e.target.value))} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+                <select value={filterRating} onChange={(e) => setFilterRating(Number(e.target.value))} className="px-4 py-2 border border-gray-600 bg-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
                   <option value={0}>All Ratings</option>
                   <option value={4}>4+ Stars</option>
                   <option value={3}>3+ Stars</option>
@@ -465,15 +465,15 @@ export default function Home() {
             </div>
 
             {filteredSubmissions.length === 0 ? (
-              <p className="text-gray-600">No approved submissions yet.</p>
+              <p className="text-gray-300">No approved submissions yet.</p>
             ) : (
               <div className="space-y-4">
                 {filteredSubmissions.map((sub) => (
-                  <div key={sub.id} className="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+                  <div key={sub.id} className="border border-gray-600 rounded-lg p-5 hover:shadow-lg transition-shadow">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h3 className="font-semibold text-lg text-gray-900">{sub.title}</h3>
-                        <p className="text-sm text-gray-600">{sub.course}</p>
+                        <h3 className="font-semibold text-lg text-gray-100">{sub.title}</h3>
+                        <p className="text-sm text-gray-300">{sub.course}</p>
                       </div>
                       <div className="text-right">
                         {renderStars(sub.rating || 0)}
@@ -502,10 +502,10 @@ export default function Home() {
                       <a href={sub.fileUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline block mb-3">View File →</a>
                     )}
 
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-600">
                       <p className="text-xs text-gray-500">Submitted: {new Date(sub.submittedAt).toLocaleDateString()}</p>
                       <div>
-                        <p className="text-xs text-gray-600 mb-1">Rate this:</p>
+                        <p className="text-xs text-gray-300 mb-1">Rate this:</p>
                         {renderStars(0, true, sub.id)}
                       </div>
                     </div>
@@ -517,8 +517,8 @@ export default function Home() {
         )}
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-6 text-center text-gray-600">
+      <footer className="bg-white border-t border-gray-600 mt-12">
+        <div className="max-w-7xl mx-auto px-4 py-6 text-center text-gray-300">
           <p>Queens College Hub • Built for students, by students</p>
         </div>
       </footer>
